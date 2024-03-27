@@ -18,7 +18,7 @@ Each vector can be represented as follows:
 </li>
 </ul>
 
-ENCORE project contains multiple libraries for different purposes and also with different gene pairings. The libraries that we are documenting here are as follows:
+The libraries that we are documenting here are as follows:
 <ul>
 <li> PILOT Library (A small library first designed to test the dual CRISPR-Cas9 KO Screens and optimize the results)</li>
 <li>Colorectal Library1 (COLO1) : developed for the KRAS mutant colon cancers. </li>
