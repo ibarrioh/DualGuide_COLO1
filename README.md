@@ -190,9 +190,8 @@ The details of the analysis can be found in the document Report_LibraryGeneSelec
 
 The genes that are selected as the library genes for Colorectal cancer is divided into 3 libraries and similarly the genes for Breast Cancer is divided into 3 libraries. We named the KRAS-mutant colorecta libraries as (i) COLO1, (ii) COLO2 and (iii) COLO3. Similarly the triple negative Breast cancer libraries are named as (i) BRCA1, (ii) BRCA2 and (iii) BRCA3.  
 
-![Encore_Libraries](Images/Image8.png)
 
-Here the COLO1 and BRCA1 libraries are designed slightly different compared to the COLO2/3 and BRCA2/3. COLO1 and BRCA1 are designed at the early stages of the ENCORE project and we change some of the controls in the following libraries 2 and 3. Here is the detailed description of each library: 
+
 
 #### COLO1 Library:
 There are total of 100136 Vectors in the library and all the vectors are designed using Wildtype Scaffold. As we described above this is an anchored library where a set of 40 anchor genes are paired with 404 library genes. The annotation categories for the COLO1 library is under the (Notes) field and can be described as follows: 
@@ -208,79 +207,3 @@ There are total of 100136 Vectors in the library and all the vectors are designe
 
 
 
-
-## PILOT LIBRARY AND ANALYSIS
-
-The pilot library is the first dual CRISPR Cas9 KO library and it was designed by Emanuel Goncalves. Here in this section I am going to summarise the details of the library and the analysis process. 
-
-### LIBRARY 
-
-The library consists of 8914 Vectors with the following vector structure: 
-
-
-
-
-
-Each vector is classified as one of the following categories: 
-<ul>
-<li> Anchors 
-
-
-
-
-MERGE COUNTS 
-
-```
-cp ../../../ENCORE_CURRENT/SCRIPTS/MERGE_COUNTS/merge_counts_exact.sh EXACT/
-cp ../../../ENCORE_CURRENT/SCRIPTS/MERGE_COUNTS/merge_stats_exact.sh EXACT/
-cp ../../../ENCORE_CURRENT/SCRIPTS/MERGE_COUNTS/merge_counts_mismatch.sh MISMATCH/
-cp ../../../ENCORE_CURRENT/SCRIPTS/MERGE_COUNTS/merge_stats_mismatch.sh MISMATCH/
-```
-
-```
-./merge_counts_exact.sh ../../../../ENCORE_CURRENT/LIBS/BRCA2_vectorIDS.sorted.txt
-./merge_stats_exact.sh
-```
-
-
-```
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA1_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-1.counts -out ../PLASMIDS/BRCA1_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA1_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-1.counts -out ../PLASMIDS/BRCA1_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA1_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-1.counts -out ../PLASMIDS/BRCA1_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA1_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-1.counts -out ../PLASMIDS/BRCA1_Plasmid_2G_MISMATCH.txt
-
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA2_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-2.counts -out ../PLASMIDS/BRCA2_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA2_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-2.counts -out ../PLASMIDS/BRCA2_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA2_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-2.counts -out ../PLASMIDS/BRCA2_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA2_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-2.counts -out ../PLASMIDS/BRCA2_Plasmid_2G_MISMATCH.txt
-
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA3_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-3.counts -out ../PLASMIDS/BRCA3_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA3_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-3.counts -out ../PLASMIDS/BRCA3_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA3_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-3.counts -out ../PLASMIDS/BRCA3_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/BRCA3_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-BRCA-3.counts -out ../PLASMIDS/BRCA3_Plasmid_2G_MISMATCH.txt
-
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO1_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-1.counts -out ../PLASMIDS/COLO1_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO1_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-1.counts -out ../PLASMIDS/COLO1_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO1_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-1.counts -out ../PLASMIDS/COLO1_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO1_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-1.counts -out ../PLASMIDS/COLO1_Plasmid_2G_MISMATCH.txt
-
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO2_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-2.counts -out ../PLASMIDS/COLO2_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO2_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-2.counts -out ../PLASMIDS/COLO2_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO2_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-2.counts -out ../PLASMIDS/COLO2_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO2_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-2.counts -out ../PLASMIDS/COLO2_Plasmid_2G_MISMATCH.txt
-
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO3_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-3.counts -out ../PLASMIDS/COLO3_Plasmid_4G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO3_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/EXACT/COUNT_FILES_SAMPLES_MERGED/lib-COLO-3.counts -out ../PLASMIDS/COLO3_Plasmid_2G_EXACT.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO3_index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-3.counts -out ../PLASMIDS/COLO3_Plasmid_4G_MISMATCH.txt
-python annotateCounts.py -in /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/LIBS/COLO3_2G.index.sorted.txt -co /lustre/scratch125/casm/team215mg/ek11/ENCORE_CURRENT/COUNT_FILES/PLASMIDS/MISMATCH/COUNT_FILES_SAMPLES_MERGED/lib-COLO-3.counts -out ../PLASMIDS/COLO3_Plasmid_2G_MISMATCH.txt
-```
-
-All the programs and scripts related to the project Encore. The scripts and the programs are explained and the flow of the pipeline with intermediate scripts are explained in order to be able to analyse all the from scratch
-
- 1. Extracting the fastq reads from the cram files and mapping the reads to the library files for counting
- 2. Merging the stats and count files together 
- 3. Scripts for the QC
- 4. Normalization and scaling files. 
- 5. LogFC and mageck scripts automated. 
- 6. BLISS method 
- 
