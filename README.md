@@ -21,8 +21,7 @@ Each vector can be represented as follows:
 ENCORE project contains multiple libraries for different purposes and also with different gene pairings. The libraries that we are documenting here are as follows:
 <ul>
 <li> PILOT Library (A small library first designed to test the dual CRISPR-Cas9 KO Screens and optimize the results)</li>
-<li>Colorectal Libraries (COLO1/COLO2/COLO3) : These are the libraries that we developed for the KRAS mutant colon cancers. </li>
-<li>Breast Libraries (BRCA1/BRCA2/BRCA3) : These are the libraries that we developed for the triple negative breast cancers </li>
+<li>Colorectal Library1 (COLO1) : developed for the KRAS mutant colon cancers. </li>
 
 Although there are slight differences between different libraries the main format of the libraries are as follows: 
 
