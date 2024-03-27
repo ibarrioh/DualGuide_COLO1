@@ -61,7 +61,7 @@ The fields that are in the library are as follows:
 <li><strong>Oligo_Sequence</strong>: The combination of the guide sequences, scaffolds, tRNA and linker. This is the final sequence of the vector that is used for ordering the library</li>
 </ul>
 
-The details of each library we designed for the ENCORE project is as follows:
+The details of each library are as follows:
 
 ### 1 PILOT LIBRARY:
 
@@ -117,66 +117,6 @@ There are a total of 984 guide pairs. Each of these pairs are duplicated 3 times
 
 Information related to the Pilot library can be found in [EMRE] 
 
-### 2 COLO AND BRCA LIBRARY:
-
-#### Selection of the genes for these libraries:
-
-Here is the detailed description of the library gene selection process both for triple-negative breast cancer and KRAS-mutant colorectal cancer as a part of the ENCORE project aiming at systematic generation of double CRISPR knockouts of human genes. An exhaustive genome-wide approach would entail generating more than 500 million double mutant variants, which is not feasible. This motivated us to narrow down the search space to a feasible number of gene pairs (around 75K). Hence, we needed to take a selective approach in order to focus on the most promising set of gene pairs. For this purpose, we needed to define a set of criteria in order to prioritize the gene pairs.
-
-First of all, based on our current understanding of the genetics of these two disease types, we selected a small set of genes called anchor genes (around 40 genes), which will be exhaustively paired with a larger set of library genes (around 1600 genes) to be selected among more than 20,000 protein- coding genes of the human genome.
-
-We focused entirely on the set of genes with evidence of association with breast or colorectal cancer according to the Open-Targets database. This considerably narrows down the potential candidates to 9,764 genes in breast and 9,668 genes in colorectal cancer. Furthermore, based on the gene expression profiles from the Cell Model Passports, we removed 1920 genes from the breast list, which are not expressed on any of the 15 triple- negative breast cancer cell lines and similarly, removed 1985 genes from the colorectal list, which are not expressed on any of the 25 KRAS-mutant colorectal cancer cell lines. Moreover, we eliminated the genes, which are considered as core essential by at least one of the four methods (BAGEL, ADaM, STEM and Dede). Additionally, using Cen-tools, we identified genes, which are context essential in breast and colon tissues, and so we removed them from the corresponding libraries. Thus, we ended up with 6,594 and 6,520 genes as the potential candidates for consideration, respectively in breast and colorectal cancer libraries.
-
-To prioritize the remaining candidate genes, we used the following 16 different criteria:
-<ul><li>Set 1: anchor genes:<br>
-In order to investigate the potential interactions among the anchor genes, we included them also in the library genes. The anchor genes were selected based on the current knowledge on the molecular biology and genetics of the breast and colorectal cancers. We selected 40 and 43 genes as the anchor genes for breast and colorectal cancers respectively. Furthermore, for breast, we added 26 additional genes as they were initially considered as anchor candidates.
-</li>
-<li>Set 2: paralogs of the anchor genes:<br>
-We identified all paralogs of the anchor genes using a previously characterized list of human paralog genes. This resulted in 68 and 71 genes, which were paralogs of at least one breast or one colorectal anchor gene respectively.
-</li>
-<li>Set 3: Fitness genes (Tractability group I):<br>
-We prioritized genes, which were shown to exert fitness effects on at least one triple-negative breast cancer cell line, or one KRAS-mutant colorectal cancer cell line based on the previous genome wide single CRISPR knockout study. Moreover, this set only includes the genes, which belong to the target tractability of group I (i.e. targets for which at least a clinically approved or a drug in preclinical phase exists). We retrieved the tractability groups of the genes from the Open-Targets database, and considering the fitness genes, we identified 74 and 70 genes belonging to this set, respectively for breast and colorectal cancer.
-</li>
-<li>Set 4: Kinases:<br>
-We identified all kinases in the remaining list of candidate genes that resulted in 154 and 203 kinase genes respectively for breast and colorectal cancer. We included all kinases in this set, irrespective of their fitness effects or target tractability groups.
-</li>
-<li>Set 5: Fitness genes (involved in apoptosis and cell cycle):<br>
-Again, we considered the fitness genes that we characterized based on the previous single knockout study. In this set, we included all the fitness genes, which were involved in apoptosis or cell cycle progression and regulation, irrespective of their target tractability. This resulted in 218 and 150 genes respectively for breast and colorectal cancer.
-</li>
-<li>Set 6: Fitness genes (Tractability group II):<br>
-Again, we considered the fitness genes, but the subset that belongs to the target tractability group II (i.e. targets with experimental evidence of small molecule binding). This resulted in 285 and 267 genes respectively for breast and colorectal cancer.
-</li>
-<li>Set 7: Non-Fitness genes (Tractability group I):<br>
-Then, we considered the genes without known fitness effects on breast or colorectal cancer cell lines. We specifically selected those genes, which belong to the target tractability of group I (i.e. targets for which at least a clinically approved or a drug in preclinical phase exists). This resulted in 450 and 344 genes respectively for breast and colorectal cancer.
-</li>
-<li>Set 8: Biomarkers of drug resistance:<br>
-The biomarkers of resistance to a drug, which targets at least one of the anchor genes, have high potential to form synthetic lethality interactions with the given anchor gene. Therefore, in this analysis, we tried to identify the genes, which are considered as biomarkers of drug resistance for a drug that targets at least one of the anchor genes. For this purpose, we used both mutation and expression data from Genomics of Drug Sensitivity in Cancer (GDSC) database. We considered a gene as the biomarker of drug resistance, if it fulfilled the strict criteria of significance: FDR< 25%, P value < 0.01 and Glass delta > 1. This resulted only in 3 for breast and 8 genes for colorectal cancer.
-</li>
-<li>Set 9: CARNIVAL analysis:<br>
-In this analysis, we leveraged the Connectivity Map to identify the set of genes, which are over- activated upon induction by a given drug. Specifically, we were interested in drugs that target at least one of the anchor genes. We hypothesized that the set of genes that get over-activated after perturbing anchor genes, are likely to form synthetic lethality interaction with the given anchor genes, and thus are potentially promising candidates to be included in our libraries. Therefore, we identified 70 and 53 compounds, which target at least one of the breast and colorectal anchor genes respectively. We applied CARNIVAL method on the corresponding L1000- LINCS compound-induced transcriptional profiles. CARNIVAL outputs the set of genes, which are over-activated after inducing the cells with each of these compounds. We used MCF7 and HT29 cell lines for the compounds targeting breast and colorectal anchor genes respectively. On average, around 25 genes were over-activated after inducing the cells with a given compound. However, these over- activated genes strongly overlap across different compounds. Thus, we obtained 310 and 263 genes, which were shown to be over-activated on at least one of the compounds targeting breast and colorectal anchor genes respectively.
-</li>
-<li>Set 10: Co-essentiality analysis I:<br>
-Previous studies have shown that gene pairs, whose essentiality profiles correlate, or anti-correlate are likely to genetically interact with each other. Therefore, in this analysis, we explored the Cancer Dependency Map (the integrated Sanger-Broad dataset) in order to identify the set of genes, whose essentiality profiles across diverse cell lines correlate or anti-correlate well (correlation coefficient > 0.25 or < -0.25) with at least one of the anchor genes. This analysis resulted in 207 and 220 genes as potential hits respectively for the breast and colorectal libraries.
-</li>
-<li>Set 11: Co-essentiality analysis II:<br>
-In this analysis, genes, which tend to be essential in cell lines mutated or overexpressed in one of the anchor genes are selected. These genes are likely to form synthetic lethal pairs with the anchor genes. We applied Cen-tools (using strict criteria of statistical significance) on the Cancer Dependency Map to identify this type of context-essential genes. We identified 19 and 35 genes respectively for breast and colorectal cancer.
-</li>
-<li>Set 12: Mutual exclusivity:<br>
-Mutually exclusive genes might also be a potential source of synthetic lethality interactions as the lack of simultaneous mutations in a given pair of genes might indicate lethality of such mutation pairs. For this purpose, we analyzed TCGA mutational data using cBioPortal in order to discover the set of genes, which are mutually exclusive with at least one of the anchor genes. In this analysis, we got few hits for breast cancer, but hundreds for colon cancer. Majority of the hits in colon cancer were mutually exclusive with only two of the anchor genes, namely APC and KRAS. Since, we study colorectal cancer mainly in a KRAS mutant context, we included the genes mutually exclusive with KRAS, but not the APC ones. Finally, this resulted in 52 and 368 candidate genes respectively for breast and colorectal cancer.
-</li>
-<li>Set 13: Copy number information:<br>
-In this analysis, the emphasis is on genes, which are amplified in breast and colorectal cancer cell lines. A previous study identified 24 and 20 significantly amplified regions, which harbour 1035 and 675 genes respectively in breast and colorectal cancer cell lines. However, only a small fraction of these genes overlapped with our restricted Open-Targets set of cancer associated genes: 298 genes in breast and 202 genes in colorectal. We did not consider copy number information as a stand-alone criterion, and so we only considered the genes, which overlapped at least with one of the other 15 sets in our final lists (95 and 71 genes respectively in breast and colorectal cancer).
-</li>
-<li>Set 14: Known genetic interactions:<br>
-In this analysis, we aimed to search for genes, which are known to be synthetic lethal of one of the anchor genes in some human cell lines. Moreover, we investigated the genes in yeast, which are known to have negative genetic interactions with the orthologs of the anchor genes. We used BioGRID database and identified 91 genes in breast and 193 genes, which are shown to have negative genetic interactions with at least one of the anchor genes in some human cell lines. Moreover, we identified the human orthologs of the 843 and 717 yeast genes showing negative genetic interactions with an ortholog of at least one of the anchor genes in breast and colorectal cancer respectively. We used the intersection of these two sets that respectively yielded 68 and 80 genes in breast and colorectal cancer as potentially promising candidates in our libraries.
-</li>
-<li>Set 15: Protein-protein interactions:<br>
-Proteins physically interacting with the anchor proteins are also likely to establish negative genetic interactions with them. To identify those promising interaction partners, we used BioGRID database and identified 923 and 1024 genes physically interacting with at least one of the breast and colorectal anchor genes respectively. We then applied another selective criterion on this pool of genes by focusing only on the subset of these genes, which get interaction score of higher than 900 according to the STRING database. This resulted in a final set of 411 and 321 genes in breast and colorectal respectively.
-</li>
-<li>Set 16: Proteins studied in the Gordon Mill’s Reverse-Phase Protein Arrays paper:<br>
-Finally, we also included the 210 clinically important proteins, whose expression has been measured in a recent study using reverse-phased protein arrays. We aimed to include the 313 genes corresponding to these 210 proteins in our libraries provided they are considered as cancer associated and are not core essential. We thus ultimately, included 241 and 226 of these genes respectively in our breast and colorectal libraries.
-</li>
-</ul>
 
 
 #### COLO1 Library:
