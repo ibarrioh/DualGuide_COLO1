@@ -177,11 +177,6 @@ Proteins physically interacting with the anchor proteins are also likely to esta
 Finally, we also included the 210 clinically important proteins, whose expression has been measured in a recent study using reverse-phased protein arrays. We aimed to include the 313 genes corresponding to these 210 proteins in our libraries provided they are considered as cancer associated and are not core essential. We thus ultimately, included 241 and 226 of these genes respectively in our breast and colorectal libraries.
 </li>
 </ul>
-The details of the analysis can be found in the document Report_LibraryGeneSelection.pdf that is written by Sayed-Rzgar Hosseini. [EMRE REFERANCE]
-
-The genes that are selected as the library genes for Colorectal cancer is divided into 3 libraries and similarly the genes for Breast Cancer is divided into 3 libraries. We named the KRAS-mutant colorecta libraries as (i) COLO1, (ii) COLO2 and (iii) COLO3. Similarly the triple negative Breast cancer libraries are named as (i) BRCA1, (ii) BRCA2 and (iii) BRCA3.  
-
-
 
 
 #### COLO1 Library:
