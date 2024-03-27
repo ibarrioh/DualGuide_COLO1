@@ -1,12 +1,4 @@
 
-# ENCORE PROJECT
-
-ENCORE Project aims to address the challenge of resistance to standard cancer therapies and the need for personalized treatments. A comprehensive approach using integrative network biology and functional genomics to explore rational combinations of target/pathway inhibition in oncology is proposed as a part of the project.  To achieve this, large-scale two-gene combinatorial CRISPR knock-out screens are conducted, focusing on KRAS-mutant colon and triple-negative breast cancers. These cancer types were selected due to their unmet clinical need and availability of preclinical models. ENCORE aims to identify synergistic pathways within these specific genetic contexts and create network interaction maps to understand combination response mechanisms. Ultimately, the project aims to uncover new targets for effective combination therapy against primary or secondary drug resistance.
-
-The main issue with the dual CRISPR-Cas9 KO Screens is the amount of combinations we can explore. The number of combinations of 2 genes from all genes in the genome is too high to put into a library which usually contains around ~120K vectors. ENCORE we choose an anchored approach where a 40 anchor genes are selected and paired with ~500 genes (per library) that are selected after a prioritisation process.  
-
-In the following sections I am going to describe the library selection process, the mapping of the reads and analysis of the data in more details. 
-
 ## DUAL CRISPR-Cas9 KO LIBRARIES
 
 Dual CRISPR-Cas9 KO Libraries are similar to the Single CRISPR-Cas9 Libraries in terms of their design. The main difference is that instead of a single guide RNA, each vector contains 2 guideRNAs as a pair targeting different genes or in some cases the same gene. 
