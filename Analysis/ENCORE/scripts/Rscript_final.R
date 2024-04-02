@@ -1,15 +1,19 @@
 
-
-
+###This is the code for the adhoc figure generation, paths for the figure location as well as input must be modified
+###All input needed for this code is coming from the 'PILOT' sub folder system or from the 'ENCORE/input', 
+###both paths should we modified as needed when running locally.
+###RColorBrewer together with ineq are needed to run these lines
+###This code is tailored to the analysis that we are doing here and meant to reproduce the results from each of the figures
+###
 ####### ####### ####### ####### ####### ####### ####### ####### 
 ####### CODE for FIGURE1
 ####### ####### ####### ####### ####### ####### ####### ####### 
 
 ####### FIG1G
-## path_stat_plasmid -> path were the stats for the COLO1 plasmid are located
+## path_stat_plasmid -> path where the stats for the COLO1 plasmid are located, in the github rep thwy are under ANALYSIS/ENCORE/input
 
 #load table and modify 
-stat=as.matrix(read.delim(path_stat_plasmid,sep=' '))
+stat=as.matrix(read.delim('input/lib-COLO-1.stats',sep=' '))
 temp=stat[,1]
 stat=apply(stat[,2:4],2,as.numeric)
 rownames(stat)=temp
@@ -83,7 +87,7 @@ pal1=c(rgb(108/255,116/255,134/255),rgb(105/255,156/255,201/255),rgb(205/255,232
 pos=c('essential + non-targeting','non-targeting + essential','intergenic + essential','essential + intergenic')
 neg=c('non-essential + non-essential','non-targeting + non-targeting','intergenic + intergenic')
 
-pdf('Fig2A_boxplot_500PX_D3.pdf',width=4,height=5)
+pdf('pathFortheFigure/Fig2A_boxplot_500PX_D3.pdf',width=4,height=5)
 boxplot(mat[anot[,'Notes']!='DistanceCut',2],
         mat[anot[,'Notes']!='DistanceCut' & anot[,'Scaffold']=='Wildtype' & anot[,'vector_class']%in%pos,2],
         mat[anot[,'Notes']!='DistanceCut' & anot[,'Scaffold']=='Wildtype'  & anot[,'vector_class']%in%neg,2],
@@ -146,7 +150,7 @@ data <- data.frame(sgRNA1 = wt[,1], sgRNA2 = wt[,2])
 reg<-lm(sgRNA1 ~ sgRNA2, data = data)
 # Scatter plot
 
-pdf('/Fig2C_WT_500PX_D3.pdf',width=15,height=5)
+pdf('pathFortheFigure/Fig2C_WT_500PX_D3.pdf',width=15,height=5)
 par(mfrow=c(1,3))
 
 data <- data.frame(sgRNA1 = wt[,1], sgRNA2 = wt[,2])
@@ -219,7 +223,7 @@ n_max=AUCS_max
 ####RECALL CURVES
 
 ### WT
-pdf('Fig2D_recall_500PX_D3.pdf',width=12,height=4)
+pdf('pathFortheFigure/Fig2D_recall_500PX_D3.pdf',width=12,height=4)
 par(mfrow=c(1,3))
 
 stype_df=sort(mat[scaf1,'PILOT_500X_D14'])
@@ -311,10 +315,10 @@ dev.off()
 
 ##########SCORE comparaisson
 
-score_ag=readRDS('/PILOT/MERGED/SCORE_median_lfc.rds')
+score_ag=readRDS('/input/SCORE_median_lfc.rds')
 
 lfc=readRDS('/PILOT/MERGED/PILOC_EXACT_LFC_D3.rds')
-anot=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/PILOT/LIB/PilotLib_Annot.txt'))
+anot=as.matrix(read.delim('PILOT/LIB/PilotLib_Annot.txt'))
 rownames(anot)=anot[,'ID']
 
 mat=cbind(apply(lfc[,c('PILOT_100X_D14_R1','PILOT_100X_D14_R2','PILOT_100X_D14_R3')],1,mean),
@@ -389,7 +393,7 @@ reg<-lm(SCO ~ DUAL, data = data)
 
 # Scatter plot
 
-pdf('/Fig2B_WT_500PX_D3.pdf',width=5,height=5)
+pdf('pathFortheFigure/Fig2B_WT_500PX_D3.pdf',width=5,height=5)
 
 plot(data,xlim=c(-6,1),ylim=c(-6,1),
      main='Gene level correlation single KO',xlab='DualKO (log2FC)',ylab='SingleKO-SCORE (log2FC)',
@@ -406,20 +410,19 @@ dev.off()
 ####### CODE for FIGURE3
 ####### ####### ####### ####### ####### ####### ####### ####### 
 ############## Fig3A
-
-colo1=readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/colo1_plm.rds')
-IDs=readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/IDs_colo1.rds')
+##numeric values
+colo1=readRDS('/input/colo1_plm.rds')
+##character values
+IDs=readRDS('/input/IDs_colo1.rds')
 colo1=colo1[,grep('136',colnames(colo1))]
 colo1=apply(colo1[,1:3],1,mean)
-
-table(IDs[,'MyNote'])
-
+##Selecting conditions
 sel1=c('AnchorCombinations','LibraryCombinations','GIControlsCombinations')
 sel2=c('AnchorSingletons','LibrarySingletons','GIControlsSingletons')
 sel3=c('ESSENTIAL-INTERGENIC','ESSENTIAL-NONTARGET',
        'INTERGENIC-INTERGENIC','NONESSENTIAL-NONESSENTIAL','NONTARGET-NONTARGET')
 
-pdf('/Fig3A_boxplot_ENCORE_mean_v2.pdf',width=4,height=5)
+pdf('pathFortheFigure/Fig3A_boxplot_ENCORE_mean_v2.pdf',width=4,height=5)
 boxplot(colo1[IDs[,'MyNote']%in%sel1],colo1[IDs[,'MyNote']%in%sel2],colo1[IDs[,'MyNote']==sel3[1]],
         colo1[IDs[,'MyNote']==sel3[2]],colo1[IDs[,'MyNote']==sel3[3]],colo1[IDs[,'MyNote']==sel3[4]],
         colo1[IDs[,'MyNote']==sel3[5]],names=c('DoubleKO','SingleKO',sel3),las=3,ylab='ENCORE-HT19 log(FC)',col='white')
@@ -427,8 +430,8 @@ dev.off()
 
 ############# Fig3B 
 
-IDs_c1=readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/IDs_colo1.rds')
-c1=as.matrix(readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/colo1_plm_scale_FILTER3SD_GEN.rds'))
+IDs_c1=readRDS('/input/IDs_colo1.rds')
+c1=as.matrix(readRDS('/input/colo1_plm_GEN.rds'))
 
 row_mean_na_rm <- function(x) {
   mean(x, na.rm = TRUE)
@@ -475,7 +478,8 @@ temp=aggregate(. ~ gen , data=temp, median, na.action = NULL, na.rm=T)
 l_c1=apply(as.matrix(temp[,2:ncol(temp)]),2,as.numeric)
 rownames(l_c1)=temp$gen
 
-#######PARALOGOS
+#######PARALOGS from Ryan et al https://doi.org/10.1016/j.cels.2021.08.006
+
 rownames(IDs_combi_c1)=paste(IDs_combi_c1[,1],IDs_combi_c1[,2],sep='_')
 
 m_c1=c(a_c1[,grep('136',colnames(a_c1))],l_c1[,grep('136',colnames(a_c1))])
@@ -506,7 +510,8 @@ colnames(combi_c1)[ncol(combi_c1)]='sco'
 combi_c1=combi_c1[order(combi_c1[,'sco']),]
 combi_c1[combi_c1[,'pair']<=-1 & combi_c1[,'sco']<=-1 ,]
 
-para=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/R_analysis/paralog_scores_ryan.csv',sep=','))
+###uploading table
+para=as.matrix(read.delim('/inpout/paralog_scores_ryan.csv',sep=','))
 rownames(para)=para[,'sorted_gene_pair']
 para=para[,c('prediction_rank','prediction_percentile','prediction_score','sorted_gene_pair','A1','A2' )]
 
@@ -528,7 +533,7 @@ x1=sort_bliss[!rownames(combi_c1)%in%c(temp1,temp2),2]
 x2=sort_bliss[rownames(combi_c1)%in%temp1,2]
 x3=sort_bliss[rownames(combi_c1)%in%temp2,2]
 
-pdf('/Users/ih6/projects/Basset/2Gpaper/R_analysis/figures/fig3B_bliss.pdf',width=3,height = 5)
+pdf('/pathFortheFigure/fig3B_bliss.pdf',width=3,height = 5)
 
 box=boxplot(x1,c(x2,x3),ylim=c(-2,1.5),col='white',
             ylab='bliss score (observed-expected)',main='Bliss score based on logFC (HT29)')
@@ -542,8 +547,8 @@ dev.off()
 
 ###########Figure 3C 
 
-colo1=readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/colo1_plm_scale.rds')
-IDs=readRDS('/Users/ih6/projects/ENCORE/160823/rds_cas9_test/IDs_colo1.rds')
+colo1=readRDS('/input/colo1_plm_scale.rds')
+IDs=readRDS('/input/IDs_colo1.rds')
 colo1=colo1[,grep('136',colnames(colo1))]
 colo1=apply(colo1[,1:3],1,mean)
 
@@ -574,7 +579,7 @@ pal=c(rgb(170/255,222/255,135/255),
       rgb(255/255,230/255,128/255),
       rgb(170/255,222/255,135/255))
 
-pdf('Fig3C_boxplot_examples.pdf',width=5,height=6)
+pdf('pathFortheFigure/Fig3C_boxplot_examples.pdf',width=5,height=6)
 
 boxplot(h1,h2,h3,a1,a2,a3,c1,c2,c3,m1,m2,m3,
         names=c('HDAC1','HDAC1+HDAC2','HDAC2',
@@ -819,7 +824,7 @@ swap = (b/total_number_of_reads)*100
 ########
 tab_final[,'m7']=c(sgRNA1_exists,sgRNA2_exists,sgRNA_match,swap)
 
-pdf('/Users/ih6/projects/Basset/2Gpaper/R_analysis/figures/Fig1suppB_overall_stats.pdf',width=7,height=5)
+pdf('pathFortheFigure/Fig1suppB_overall_stats.pdf',width=7,height=5)
 x=barplot(t(tab_final),beside=T,ylim=c(0,100),legend=c('WT','M6','M7'),col=c(rgb(233/255,164/255,49/255),
                                                                              rgb(205/255,228/255,241/255),
                                                                              rgb(67/255,82/255,114/255)),border=NA,
@@ -837,15 +842,32 @@ dev.off()
 
 ######### Supp figure 2A
 
-head(mat)
 
+anot=as.matrix(read.delim('/PILOT/LIB/PilotLib_Annot.txt'))
+rownames(anot)=anot[,'ID']
+lfc_plm=readRDS('/PILOT/MERGED/PILOC_EXACT_LFC_D3.rds')
+
+scaf1=anot[,'Scaffold']=='Wildtype'& anot[,'Notes']!='DistanceCut'
+scaf2=anot[,'Scaffold']=='Modified6'& anot[,'Notes']!='DistanceCut'
+scaf3=anot[,'Scaffold']=='Modified7'& anot[,'Notes']!='DistanceCut'
+
+##We cut scaf WT to be same pairs as the others 
+guides_ID=paste(anot[,'sgRNA1_ID'],anot[,'sgRNA2_ID'],sep='')
+scaf1=anot[,'Scaffold']=='Wildtype'& anot[,'Notes']!='DistanceCut' & guides_ID%in%guides_ID[scaf2]
+
+#####HAcemos la media para los 3  
+
+mat=cbind(apply(lfc_plm[,c('PILOT_100X_D14_R1','PILOT_100X_D14_R2','PILOT_100X_D14_R3')],1,mean),
+          apply(lfc_plm[,c('PILOT_500X_D14_R1','PILOT_500X_D14_R2','PILOT_500X_D14_R3')],1,mean),
+          apply(lfc_plm[,c('PILOT_PCR500X_D14_R1','PILOT_PCR500X_D14_R2','PILOT_PCR500X_D14_R3')],1,mean))
+colnames(mat)=c('PILOT_100X_D14','PILOT_500X_D14','PILOT_PCR500X_D14')
 
 pal1=c(rgb(108/255,116/255,134/255),rgb(105/255,156/255,201/255),rgb(205/255,232/255,236/255))
 colores=pal1[c(1,1,1,2,2,2,3,3,3,2,2,2,3,3,3,2,2,2,3,3,3)]
 pos=c('essential + non-targeting','non-targeting + essential','intergenic + essential','essential + intergenic')
 neg=c('non-essential + non-essential','non-targeting + non-targeting','intergenic + intergenic')
 
-pdf('/Users/ih6/projects/Basset/2Gpaper/R_analysis/figures/Fig2ASupp_boxplot_D3.pdf',width=4,height=5)
+pdf('/pathFortheFigure/Fig2ASupp_boxplot_D3.pdf',width=4,height=5)
 boxplot(mat[anot[,'Notes']!='DistanceCut',1],
         mat[anot[,'Notes']!='DistanceCut',2],
         mat[anot[,'Notes']!='DistanceCut',3],
@@ -870,16 +892,10 @@ boxplot(mat[anot[,'Notes']!='DistanceCut',1],
         col=alpha(colores,1),xlab='sgRNA Scaffold',ylab='log2FC',las=3)
 dev.off()
 
-,names=rep(c('100X','500X','PCR500X'),7)
-
 ############################################################################################################################
 ############################################################################################################################
+######### Supp figure 2B
 
-
-anot=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/PILOT/LIB/PilotLib_Annot.txt'))
-rownames(anot)=anot[,'ID']
-
-lfc_plm=readRDS('/Users/ih6/projects/Basset/2Gpaper/PILOT/MERGED/PILOC_EXACT_LFC_D3.rds')
 
 scaf1=anot[,'Scaffold']=='Wildtype'& anot[,'Notes']!='DistanceCut'
 scaf2=anot[,'Scaffold']=='Modified6'& anot[,'Notes']!='DistanceCut'
@@ -891,7 +907,7 @@ colnames(lfc_plm)=c("100X_R1","100X_R2","100X_R3",
                     "500X_R1","500X_R2","500X_R3",
                     "PCR500X_R1","PCR500X_R2","PCR500X_R3")
 
-pdf('/Users/ih6/projects/Basset/2Gpaper/R_analysis/figures/Fig2Bsup_corr_D3.pdf',width=5,height=5)
+pdf('/pathFortheFigure/Fig2Bsup_corr_D3.pdf',width=5,height=5)
 
 pheatmap(cor(lfc_plm),col=colorRampPalette(brewer.pal(5,'Reds'))(100),
          fontsize = 7,cellwidth = 7, cellheight = 7,
@@ -902,13 +918,13 @@ dev.off()
 
 #####Positional effect Supp fig 2C
 
-anot=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/PILOT/LIB/PilotLib_Annot.txt'))
+anot=as.matrix(read.delim('/PILOT/LIB/PilotLib_Annot.txt'))
 rownames(anot)=anot[,'ID']
 
 anot[anot[,'Gene2']=='','Gene2']=anot[anot[,'Gene2']=='','sgRNA2_Class']
 anot[anot[,'Gene1']=='','Gene1']=anot[anot[,'Gene1']=='','sgRNA1_Class']
 
-lfc_plm=readRDS('/Users/ih6/projects/Basset/2Gpaper/PILOT/MERGED/PILOC_EXACT_LFC_D3.rds')
+lfc_plm=readRDS('/PILOT/MERGED/PILOC_EXACT_LFC_D3.rds')
 
 #####HAcemos la media para los 3  (aunque usaremos 500X)
 
@@ -976,9 +992,7 @@ temp=rownames(m7)
 m7=apply(m7,2,as.numeric)
 rownames(m7)=temp
 
-
-
-pdf('FigSupp2C_all_D3.pdf',width=10,height=10)
+pdf('pathFortheFigure/FigSupp2C_all_D3.pdf',width=10,height=10)
 par(mfrow=c(3,3))
 
 ###WT
@@ -1102,10 +1116,132 @@ legend('topleft',c(paste('cor:',round(cor(data[,1],data[,2]),2)),
 dev.off()
 
 
-
 ####### ####### ####### ####### ####### ####### ####### ####### 
 ####### CODE for SUPP FIGURE3
 ####### ####### ####### ####### ####### ####### ####### ####### 
+
+#######  Supp fig 3A A Gini index
+
+colo1=as.matrix(read.delim('/input/COLO1_RUNMERGED_EXACT_ANNOTATED.txt'))
+
+selec=c("lib.COLO.1",
+        "SIDM00136_CPID2437","SIDM00136_CPID2440","SIDM00136_CPID2443",
+        "SIDM00136_CPID1020","SIDM00136_CPID1023","SIDM00136_CPID1026")
+
+gini_plm=counts[,'lib.COLO.1']
+
+library("ineq")
+
+##curve only plasmid
+plm=cbind(counts[counts[,'lib.COLO.1']>0,'lib.COLO.1'],0,0)
+plm=plm[order(plm[,1]),]
+colnames(plm)=c('ori','read','sgRNA')
+
+plm[,'read']=cumsum(plm[,'ori'])/sum(plm[,'ori'])
+plm[,'sgRNA']=1:nrow(plm)
+plm[,'sgRNA']=plm[,'sgRNA']/max(plm[,'sgRNA'])
+
+pdf('/pathFortheFigure/FigSupp3A_plasmidCOLO_reads.pdf',width=5,height=5)
+
+plot(plm[,'sgRNA'],plm[,'read'],type='l',col=rgb(0.2,0.7,0.4),lwd=2,
+     xlab='Fraction of total sgRNAs',ylab='Fraction of total reads')
+legend('topleft',paste('GINI:',round(ineq::Gini(counts[counts[,'lib.COLO.1']>0,'lib.COLO.1']),2)))
+points(c(0,1),c(0,1),type='l')
+dev.off()
+
+##### Pannel B stats ll
+stat=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/ENCORE_data/colo1/All.stats'))
+plmd=as.matrix(read.delim('/Users/ih6/projects/Basset/2Gpaper/ENCORE_data/lib-COLO-1.stats',sep=' '))
+
+colnames(plmd)=c('fet','plasmid','plasmid_total','plasmid_rel')
+
+length(grep('.1',colnames(stat)))
+
+colnames(stat)[grep('\\.1',colnames(stat))]=
+  
+  temp=colnames(stat)[grep('\\.1',colnames(stat))][1:5]
+
+colnames(stat)=gsub('\\.1','_total',colnames(stat))
+colnames(stat)=gsub('\\.2','_rel',colnames(stat))
+
+
+temp=stat[,1]
+stat=cbind(apply(plmd[,2:4],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID2437",colnames(stat))],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID2440",colnames(stat))],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID2443",colnames(stat))],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID1020",colnames(stat))],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID1023",colnames(stat))],2,as.numeric),
+           apply(stat[,grep("SIDM00136_CPID1026",colnames(stat))],2,as.numeric))
+rownames(stat)=temp
+
+vect=stat[c('MATCH','SWAP'),grep('_rel',colnames(stat))]
+
+pdf('/pathFortheFigure/FigSupp3B_plasmidCOLO_reads.pdf',width=5,height=5)
+
+x=barplot(vect*100,beside=T,ylim=c(0,100),las=3,legend=c('gRNA1+gRNA2','SWAP'),
+          names=c('plasmid',
+                  'cas9_neg (r1)','cas9_neg (r2)','cas9_neg (r3)',
+                  'HT29 (r1)','HT29 (r2)','HT29 (r3)'),ylab='HT29 reads (% total reads)')
+text(x[1,],vect[1,]*100,round(vect[1,]*100,2),pos=4,srt=90)
+text(x[2,],vect[2,]*100,round(vect[2,]*100,2),pos=4,srt=90)
+dev.off()
+
+############
+#### Pannel C
+
+score_ag=readRDS('/inpout/SCORE_median_lfc.rds')
+
+colo1=readRDS('/input/colo1_c91.rds')
+
+IDs_colo1=readRDS('/input/IDs_colo1.rds')
+sel=IDs_colo1[,'Note']%in%c('AnchorSingletons','LibrarySingletons','NegativeControls','PositiveControls')
+IDs_colo1=IDs_colo1[sel,]
+colo1=colo1[sel,]
+
+#####Agregamos ahora nuestros datos 
+
+colo1_ag=data.frame(gene=c(IDs_colo1[IDs_colo1[,'Note']%in%c('AnchorSingletons'),'Gene2'],
+                           IDs_colo1[IDs_colo1[,'Note']%in%c('LibrarySingletons'),'Gene1']),
+                    lfc1=c(colo1[IDs_colo1[,'Note']%in%c('AnchorSingletons'),1],
+                           colo1[IDs_colo1[,'Note']%in%c('LibrarySingletons'),1]),
+                    lfc2=c(colo1[IDs_colo1[,'Note']%in%c('AnchorSingletons'),2],
+                           colo1[IDs_colo1[,'Note']%in%c('LibrarySingletons'),2]),
+                    lfc3=c(colo1[IDs_colo1[,'Note']%in%c('AnchorSingletons'),3],
+                           colo1[IDs_colo1[,'Note']%in%c('LibrarySingletons'),3]),row.names=NULL)
+colo1_ag= aggregate(. ~ gene, data=colo1_ag, median)
+colo1_ag=as.matrix(colo1_ag)
+temp=colo1_ag[,1]
+colo1_ag=apply(colo1_ag[,2:4],2,as.numeric)
+rownames(colo1_ag)=temp
+
+colo1_ag=colo1_ag[rownames(colo1_ag)%in%names(score_ag),]
+score_ag=score_ag[names(score_ag)%in%c(rownames(colo1_ag))]
+
+colo1_ag=apply(colo1_ag,1,median)
+
+colo1_ag=cbind(colo1_ag,score_ag[names(colo1_ag)])
+
+x=c(colo1_ag[,1])
+y=c(colo1_ag[,2])
+
+##500X Wildtype scaffold
+data <- data.frame(X = x, Y = y)
+# Fit linear model
+reg<-lm(Y ~ X, data = data)
+
+pdf("/pathFortheFigure/FigSupp3C_COLOvsSCORE.pdf",height=5, width=5)
+
+plot(data,xlim=c(-4,2),ylim=c(-4,2),
+     main='Gene level correlation single KO',xlab='logFC(ENCORE-HT29)',ylab='logFC(Score-HT29)',
+     col=rgb(0.2,0.5,0.8),pch=16)
+abline(h=0,v=0,col=rgb(0.5,0.5,0.5),lty=2)
+abline(reg, col =rgb(0.7,0.5,0.2,0.7),lwd=2)
+
+legend('topleft',c(paste('cor:',round(cor(data[,1],data[,2]),2)),
+                   paste('reg:',round(coef(reg)[2],2)),
+                   paste('n:',nrow(data))))
+dev.off()
 
 
 
