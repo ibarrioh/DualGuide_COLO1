@@ -1028,13 +1028,11 @@ rownames(para)=para[,'sorted_gene_pair']
 para=para[,c('prediction_rank','prediction_percentile','prediction_score','sorted_gene_pair','A1','A2' )]
 
 ###Uploading biogrid table to select genetic interactions
-biogrid=as.matrix(read.delim('/input/BIOGRID-ORGANISM-Homo_sapiens-4.4.224.mitab.txt'))
+biogrid=rbind(readRDS('/input/biogrid_human-4.4.224.mitab_part1.rds'),
+              readRDS('/input/biogrid_human-4.4.224.mitab_part2.rds'))
 #selecting interactors
 sel_type1=c('psi-mi:MI:0915(physical association)', 'psi-mi:MI:0407(direct interaction)')
 sel_type2=c('psi-mi:MI:2373(negative genetic interaction (sensu biogrid))')
-
-biogrid=biogrid[biogrid[,'Taxid.Interactor.A']=='taxid:9606' & 
-                  biogrid[,'Taxid.Interactor.B']=='taxid:9606'  ,]
 
 inte_1=biogrid[biogrid[,'Interaction.Types']%in%sel_type1 & 
                  biogrid[,'Interaction.Detection.Method']%in%c('psi-mi:MI:0004(affinity chromatography technology)','psi-mi:MI:0096(pull down)'),c("Alt.IDs.Interactor.A","Alt.IDs.Interactor.B")]
